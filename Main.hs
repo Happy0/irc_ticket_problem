@@ -27,10 +27,10 @@ module Main where
   ticketCost Week = 7
   ticketCost Month = 25
 
-  groupIntoCalendarWeeks :: [MonthDay] -> [[MonthDay]]
-  groupIntoCalendarWeeks = groupBy hasSameQuotientDiv7
+  groupIntoWithinSameWeek :: [MonthDay] -> [[MonthDay]]
+  groupIntoWithinSameWeek = groupBy hasSameQuotientDiv7
     where
-      hasSameQuotientDiv7 num1 num2 = (num1 `div` 7) == (num2 `div` 7)
+      hasSameQuotientDiv7 num1 num2 = (num2 - num1) <= 7
 
   findCheapestForWeek :: [MonthDay] -> [Ticket]
   findCheapestForWeek days = if numberOfDays >= 4 then weekTicket else dayTickets
@@ -43,7 +43,7 @@ module Main where
   findCheapestTicketCombination days
     | numberOfDays >= 23 = monthTicket
     | otherwise =
-        let groupedByWeek = groupIntoCalendarWeeks days
+        let groupedByWeek = groupIntoWithinSameWeek days
         in concat (map findCheapestForWeek groupedByWeek)
 
     where
