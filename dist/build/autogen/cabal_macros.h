@@ -14,12 +14,19 @@
   (major1) == 4 && (major2) <  9 || \
   (major1) == 4 && (major2) == 9 && (minor) <= 0)
 
-/* tool alex-3.2.1 */
-#define TOOL_VERSION_alex "3.2.1"
+/* package split-0.2.3.1 */
+#define VERSION_split "0.2.3.1"
+#define MIN_VERSION_split(major1,major2,minor) (\
+  (major1) <  0 || \
+  (major1) == 0 && (major2) <  2 || \
+  (major1) == 0 && (major2) == 2 && (minor) <= 3)
+
+/* tool alex-3.1.7 */
+#define TOOL_VERSION_alex "3.1.7"
 #define MIN_TOOL_VERSION_alex(major1,major2,minor) (\
   (major1) <  3 || \
-  (major1) == 3 && (major2) <  2 || \
-  (major1) == 3 && (major2) == 2 && (minor) <= 1)
+  (major1) == 3 && (major2) <  1 || \
+  (major1) == 3 && (major2) == 1 && (minor) <= 7)
 
 /* tool cpphs-1.19.3 */
 #define TOOL_VERSION_cpphs "1.19.3"
@@ -28,12 +35,12 @@
   (major1) == 1 && (major2) <  19 || \
   (major1) == 1 && (major2) == 19 && (minor) <= 3)
 
-/* tool gcc-6.3.1 */
-#define TOOL_VERSION_gcc "6.3.1"
+/* tool gcc-6.1.1 */
+#define TOOL_VERSION_gcc "6.1.1"
 #define MIN_TOOL_VERSION_gcc(major1,major2,minor) (\
   (major1) <  6 || \
-  (major1) == 6 && (major2) <  3 || \
-  (major1) == 6 && (major2) == 3 && (minor) <= 1)
+  (major1) == 6 && (major2) <  1 || \
+  (major1) == 6 && (major2) == 1 && (minor) <= 1)
 
 /* tool ghc-8.0.1 */
 #define TOOL_VERSION_ghc "8.0.1"
@@ -91,12 +98,12 @@
   (major1) == 0 && (major2) <  29 || \
   (major1) == 0 && (major2) == 29 && (minor) <= 1)
 
-/* tool strip-2.27 */
-#define TOOL_VERSION_strip "2.27"
+/* tool strip-2.26 */
+#define TOOL_VERSION_strip "2.26"
 #define MIN_TOOL_VERSION_strip(major1,major2,minor) (\
   (major1) <  2 || \
-  (major1) == 2 && (major2) <  27 || \
-  (major1) == 2 && (major2) == 27 && (minor) <= 0)
+  (major1) == 2 && (major2) <  26 || \
+  (major1) == 2 && (major2) == 26 && (minor) <= 0)
 
 #define CURRENT_COMPONENT_ID "dank-0.1.0.0"
 

@@ -29,9 +29,19 @@ module Main where
   ticketCost Month = 25
 
   groupIntoWithinSameWeek :: [MonthDay] -> [[MonthDay]]
-  groupIntoWithinSameWeek = groupBy isWithinWeekOfEachOther
+  groupIntoWithinSameWeek [] = [[]]
+  groupIntoWithinSameWeek days =
+    let (currentWeek, rest) = splitDaysInSameWeek days
+    in (currentWeek : groupIntoWithinSameWeek rest)
     where
-      isWithinWeekOfEachOther num1 num2 = (num2 - num1) < 7
+      splitDaysInSameWeek :: [MonthDay] -> ([MonthDay], [MonthDay])
+      splitDaysInSameWeek [] = ([], [])
+      splitDaysInSameWeek days@(firstDay : rest) = partition (isWithinWeekOf firstDay) days
+
+      isWithinWeekOf :: MonthDay -> MonthDay -> Bool
+      isWithinWeekOf day1 day2 = (day2 - day1) < 7
+
+
 
   findCheapestForWeek :: [MonthDay] -> [Ticket]
   findCheapestForWeek days = if numberOfDays >= 4 then weekTicket else dayTickets
