@@ -29,9 +29,9 @@ module Main where
   ticketCost Month = 25
 
   groupIntoWithinSameWeek :: [MonthDay] -> [[MonthDay]]
-  groupIntoWithinSameWeek = groupBy hasSameQuotientDiv7
+  groupIntoWithinSameWeek = groupBy isWithinWeekOfEachOther
     where
-      hasSameQuotientDiv7 num1 num2 = (num2 - num1) < 7
+      isWithinWeekOfEachOther num1 num2 = (num2 - num1) < 7
 
   findCheapestForWeek :: [MonthDay] -> [Ticket]
   findCheapestForWeek days = if numberOfDays >= 4 then weekTicket else dayTickets
