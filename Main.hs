@@ -12,6 +12,7 @@
 module Main where
 
   import Data.List
+  import Data.List.Split
 
   data Ticket = Day | Week | Month
 
@@ -30,7 +31,7 @@ module Main where
   groupIntoWithinSameWeek :: [MonthDay] -> [[MonthDay]]
   groupIntoWithinSameWeek = groupBy hasSameQuotientDiv7
     where
-      hasSameQuotientDiv7 num1 num2 = (num2 - num1) <= 7
+      hasSameQuotientDiv7 num1 num2 = (num2 - num1) < 7
 
   findCheapestForWeek :: [MonthDay] -> [Ticket]
   findCheapestForWeek days = if numberOfDays >= 4 then weekTicket else dayTickets
@@ -40,19 +41,27 @@ module Main where
       dayTickets = replicate numberOfDays Day
 
   findCheapestTicketCombination :: [MonthDay] -> [Ticket]
-  findCheapestTicketCombination days
-    | numberOfDays >= 23 = monthTicket
-    | otherwise =
+  findCheapestTicketCombination days =
         let groupedByWeek = groupIntoWithinSameWeek days
-        in concat (map findCheapestForWeek groupedByWeek)
+        in let tickets = concat (map findCheapestForWeek groupedByWeek)
+        in
+          if (costTickets tickets) >= (ticketCost Month)
+             then monthTicket
+             else tickets
 
     where
       numberOfDays = length days
       monthTicket = [Month]
 
+  costTickets :: [Ticket] -> Int
+  costTickets tickets = sum (map ticketCost tickets)
+
+  parseDaysFromString :: String -> [MonthDay]
+  parseDaysFromString input = map read (splitOn ", " input)
+
   main :: IO ()
   main = do
-    let daysTraveling = [1, 2, 4, 5, 7, 29, 30]
-    let ticketsNeeded = findCheapestTicketCombination daysTraveling
-
-    mapM_ (putStrLn . show) ticketsNeeded
+    daysTraveling <- fmap parseDaysFromString getLine
+    let tickets = findCheapestTicketCombination daysTraveling
+    let price = costTickets tickets
+    putStrLn (show price)
